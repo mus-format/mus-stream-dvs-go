@@ -33,7 +33,7 @@ func (ver Version[T, V]) MigrateCurrentAndMarshalMUS(v V, w muss.Writer) (n int,
 
 func (ver Version[T, V]) UnmarshalAndMigrateOldMUS(r muss.Reader) (v V, n int,
 	err error) {
-	t, n, err := ver.DTS.UnmarshalDataMUS(r)
+	t, n, err := ver.DTS.UnmarshalData(r)
 	if err != nil {
 		return
 	}

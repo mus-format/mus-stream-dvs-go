@@ -37,7 +37,7 @@ func (dvs DVS[V]) MarshalMUS(dtm com.DTM, v V, w muss.Writer) (n int,
 // ErrWrongTypeVersion or Reader errors.
 func (dvs DVS[V]) UnmarshalMUS(r muss.Reader) (dtm com.DTM, v V, n int,
 	err error) {
-	dtm, n, err = dts.UnmarshalDTMUS(r)
+	dtm, n, err = dts.UnmarshalDTM(r)
 	if err != nil {
 		return
 	}
