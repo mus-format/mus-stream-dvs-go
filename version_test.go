@@ -22,7 +22,7 @@ func TestVersion(t *testing.T) {
 		}
 	)
 
-	t.Run("MigrateCurrentAndMarshalMUS should work correctly",
+	t.Run("MigrateCurrentAndMarshal should work correctly",
 		func(t *testing.T) {
 			var (
 				wantN         = 2
@@ -44,10 +44,10 @@ func TestVersion(t *testing.T) {
 					},
 				)
 			)
-			testMigrateCurrentAndMarshalMUS(ver, foo, w, wantN, wantErr, t)
+			testMigrateCurrentAndMarshal(ver, foo, w, wantN, wantErr, t)
 		})
 
-	t.Run("If Version.MigrateCurrent fails with an error, MigrateCurrentAndMarshalMUS should return it",
+	t.Run("If Version.MigrateCurrent fails with an error, MigrateCurrentAndMarshal should return it",
 		func(t *testing.T) {
 			var (
 				wantN   = 0
@@ -58,10 +58,10 @@ func TestVersion(t *testing.T) {
 					return
 				}}
 			)
-			testMigrateCurrentAndMarshalMUS(ver, Foo{}, nil, wantN, wantErr, t)
+			testMigrateCurrentAndMarshal(ver, Foo{}, nil, wantN, wantErr, t)
 		})
 
-	t.Run("If DTS.MarshalMUS fails with an error, MigrateCurrentAndMarshalMUS should return it",
+	t.Run("If DTS.Marshal fails with an error, MigrateCurrentAndMarshal should return it",
 		func(t *testing.T) {
 			var (
 				wantN   = 0
@@ -76,10 +76,10 @@ func TestVersion(t *testing.T) {
 					return
 				}}
 			)
-			testMigrateCurrentAndMarshalMUS(ver, Foo{}, w, wantN, wantErr, t)
+			testMigrateCurrentAndMarshal(ver, Foo{}, w, wantN, wantErr, t)
 		})
 
-	t.Run("UnmarshalAndMigrateOldMUS should work correctly", func(t *testing.T) {
+	t.Run("UnmarshalAndMigrateOld should work correctly", func(t *testing.T) {
 		var (
 			wantFoo       = Foo{num: 11, str: "undefined"}
 			wantN         = 1
@@ -94,7 +94,7 @@ func TestVersion(t *testing.T) {
 		testUnmarshalAndMigrateOld[FooV1, Foo](ver, r, wantFoo, wantErr, wantN, t)
 	})
 
-	t.Run("If DTS.UnmarshalDataMUS fails with an error, UnmarshalAndMigrateOldMUS should return it",
+	t.Run("If DTS.UnmarshalData fails with an error, UnmarshalAndMigrateOld should return it",
 		func(t *testing.T) {
 			var (
 				wantFoo       = Foo{}
@@ -110,7 +110,7 @@ func TestVersion(t *testing.T) {
 			testUnmarshalAndMigrateOld[FooV1, Foo](ver, r, wantFoo, wantErr, wantN, t)
 		})
 
-	t.Run("If Version.MigrateOld fails with an error, UnmarshalAndMigrateOldMUS should return it",
+	t.Run("If Version.MigrateOld fails with an error, UnmarshalAndMigrateOld should return it",
 		func(t *testing.T) {
 			var (
 				wantFoo       = Foo{}
@@ -141,7 +141,7 @@ func testUnmarshalAndMigrateOld[T, V any](ver Version[T, V], r muss.Reader,
 	wantN int,
 	t *testing.T,
 ) {
-	v, n, err := ver.UnmarshalAndMigrateOldMUS(r)
+	v, n, err := ver.UnmarshalAndMigrateOld(r)
 	if err != wantErr {
 		t.Errorf("unexpected error, want '%v' actual '%v'", wantErr, err)
 	}
@@ -153,13 +153,13 @@ func testUnmarshalAndMigrateOld[T, V any](ver Version[T, V], r muss.Reader,
 	}
 }
 
-func testMigrateCurrentAndMarshalMUS[T, V any](ver Version[T, V], v V,
+func testMigrateCurrentAndMarshal[T, V any](ver Version[T, V], v V,
 	w muss.Writer,
 	wantN int,
 	wantErr error,
 	t *testing.T,
 ) {
-	n, err := ver.MigrateCurrentAndMarshalMUS(v, w)
+	n, err := ver.MigrateCurrentAndMarshal(v, w)
 	if err != wantErr {
 		t.Errorf("unexpected error, want '%v' actual '%v'", wantErr, err)
 	}

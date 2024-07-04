@@ -29,30 +29,30 @@ type FooV1 struct {
 	num int
 }
 
-func MarshalFooV1MUS(foo FooV1, w muss.Writer) (n int, err error) {
+func MarshalFooV1(foo FooV1, w muss.Writer) (n int, err error) {
 	return varint.MarshalInt(foo.num, w)
 }
 
-func UnmarshalFooV1MUS(r muss.Reader) (foo FooV1, n int, err error) {
+func UnmarshalFooV1(r muss.Reader) (foo FooV1, n int, err error) {
 	foo.num, n, err = varint.UnmarshalInt(r)
 	return
 }
 
-func SizeFooV1MUS(foo FooV1) (size int) {
+func SizeFooV1(foo FooV1) (size int) {
 	return varint.SizeInt(foo.num)
 }
 
 var FooV1DTS = dts.New[FooV1](FooV1DTM,
-	muss.MarshallerFn[FooV1](MarshalFooV1MUS),
-	muss.UnmarshallerFn[FooV1](UnmarshalFooV1MUS),
-	muss.SizerFn[FooV1](SizeFooV1MUS))
+	muss.MarshallerFn[FooV1](MarshalFooV1),
+	muss.UnmarshallerFn[FooV1](UnmarshalFooV1),
+	muss.SizerFn[FooV1](SizeFooV1))
 
 type FooV2 struct {
 	num int
 	str string
 }
 
-func MarshalFooV2MUS(foo FooV2, w muss.Writer) (n int, err error) {
+func MarshalFooV2(foo FooV2, w muss.Writer) (n int, err error) {
 	n, err = varint.MarshalInt(foo.num, w)
 	if err != nil {
 		return
@@ -63,7 +63,7 @@ func MarshalFooV2MUS(foo FooV2, w muss.Writer) (n int, err error) {
 	return
 }
 
-func UnmarshalFooV2MUS(r muss.Reader) (foo FooV2, n int, err error) {
+func UnmarshalFooV2(r muss.Reader) (foo FooV2, n int, err error) {
 	foo.num, n, err = varint.UnmarshalInt(r)
 	if err != nil {
 		return
@@ -74,15 +74,15 @@ func UnmarshalFooV2MUS(r muss.Reader) (foo FooV2, n int, err error) {
 	return
 }
 
-func SizeFooV2MUS(foo FooV2) (size int) {
+func SizeFooV2(foo FooV2) (size int) {
 	size = varint.SizeInt(foo.num)
 	return size + ord.SizeString(foo.str, nil)
 }
 
 var FooV2DTS = dts.New[FooV2](FooV1DTM,
-	muss.MarshallerFn[FooV2](MarshalFooV2MUS),
-	muss.UnmarshallerFn[FooV2](UnmarshalFooV2MUS),
-	muss.SizerFn[FooV2](SizeFooV2MUS))
+	muss.MarshallerFn[FooV2](MarshalFooV2),
+	muss.UnmarshallerFn[FooV2](UnmarshalFooV2),
+	muss.SizerFn[FooV2](SizeFooV2))
 
 // -----------------------------------------------------------------------------
 
@@ -90,30 +90,30 @@ type BarV1 struct {
 	num int
 }
 
-func MarshalBarV1MUS(bar BarV1, w muss.Writer) (n int, err error) {
+func MarshalBarV1(bar BarV1, w muss.Writer) (n int, err error) {
 	return varint.MarshalInt(bar.num, w)
 }
 
-func UnmarshalBarV1MUS(r muss.Reader) (bar BarV1, n int, err error) {
+func UnmarshalBarV1(r muss.Reader) (bar BarV1, n int, err error) {
 	bar.num, n, err = varint.UnmarshalInt(r)
 	return
 }
 
-func SizeBarV1MUS(bar BarV1) (size int) {
+func SizeBarV1(bar BarV1) (size int) {
 	return varint.SizeInt(bar.num)
 }
 
 var BarV1DTS = dts.New[BarV1](BarV1DTM,
-	muss.MarshallerFn[BarV1](MarshalBarV1MUS),
-	muss.UnmarshallerFn[BarV1](UnmarshalBarV1MUS),
-	muss.SizerFn[BarV1](SizeBarV1MUS))
+	muss.MarshallerFn[BarV1](MarshalBarV1),
+	muss.UnmarshallerFn[BarV1](UnmarshalBarV1),
+	muss.SizerFn[BarV1](SizeBarV1))
 
 type BarV2 struct {
 	num int
 	str string
 }
 
-func MarshalBarV2MUS(bar BarV2, w muss.Writer) (n int, err error) {
+func MarshalBarV2(bar BarV2, w muss.Writer) (n int, err error) {
 	n, err = varint.MarshalInt(bar.num, w)
 	if err != nil {
 		return
@@ -127,7 +127,7 @@ func MarshalBarV2MUS(bar BarV2, w muss.Writer) (n int, err error) {
 	return
 }
 
-func UnmarshalBarV2MUS(r muss.Reader) (bar BarV2, n int, err error) {
+func UnmarshalBarV2(r muss.Reader) (bar BarV2, n int, err error) {
 	bar.num, n, err = varint.UnmarshalInt(r)
 	if err != nil {
 		return
@@ -138,15 +138,15 @@ func UnmarshalBarV2MUS(r muss.Reader) (bar BarV2, n int, err error) {
 	return
 }
 
-func SizeBarV2MUS(bar BarV2) (size int) {
+func SizeBarV2(bar BarV2) (size int) {
 	size = varint.SizeInt(bar.num)
 	return size + ord.SizeString(bar.str, nil)
 }
 
 var BarV2DTS = dts.New[BarV2](BarV1DTM,
-	muss.MarshallerFn[BarV2](MarshalBarV2MUS),
-	muss.UnmarshallerFn[BarV2](UnmarshalBarV2MUS),
-	muss.SizerFn[BarV2](SizeBarV2MUS))
+	muss.MarshallerFn[BarV2](MarshalBarV2),
+	muss.UnmarshallerFn[BarV2](UnmarshalBarV2),
+	muss.SizerFn[BarV2](SizeBarV2))
 
 // -----------------------------------------------------------------------------
 
@@ -203,7 +203,7 @@ func TestDVS(t *testing.T) {
 	fooDVS := New[Foo](reg)
 	barDVS := New[Bar](reg)
 
-	t.Run("MarshalMUS should work correctly", func(t *testing.T) {
+	t.Run("Marshal should work correctly", func(t *testing.T) {
 		var (
 			wantN         = 2
 			wantErr error = nil
@@ -225,32 +225,32 @@ func TestDVS(t *testing.T) {
 			)
 			mocks = []*mok.Mock{w.Mock}
 		)
-		testMarshalMUS[Foo](fooDVS, FooV1DTM, foo, w, wantN, wantErr, mocks, t)
+		testMarshal[Foo](fooDVS, FooV1DTM, foo, w, wantN, wantErr, mocks, t)
 	})
 
-	t.Run("MarshalMUS should return ErrUnknownDTM, if there is no DTM in Registry",
+	t.Run("Marshal should return ErrUnknownDTM, if there is no DTM in Registry",
 		func(t *testing.T) {
 			var (
 				wantN   = 0
 				wantErr = com.ErrUnknownDTM
 			)
-			testMarshalMUS[Foo](fooDVS, BarV2DTM+4, Foo{}, nil, wantN, wantErr,
+			testMarshal[Foo](fooDVS, BarV2DTM+4, Foo{}, nil, wantN, wantErr,
 				[]*mok.Mock{},
 				t)
 		})
 
-	t.Run("MarshalMUS should return ErrWrongTypeVersion, if corresponding version in Registry is not MigrationVersion",
+	t.Run("Marshal should return ErrWrongTypeVersion, if corresponding version in Registry is not MigrationVersion",
 		func(t *testing.T) {
 			var (
 				wantN   = 0
 				wantErr = com.ErrWrongTypeVersion
 			)
-			testMarshalMUS[Foo](fooDVS, BarV2DTM+1, Foo{}, nil, wantN, wantErr,
+			testMarshal[Foo](fooDVS, BarV2DTM+1, Foo{}, nil, wantN, wantErr,
 				[]*mok.Mock{},
 				t)
 		})
 
-	t.Run("UnmarshalMUS should work correctly", func(t *testing.T) {
+	t.Run("Unmarshal should work correctly", func(t *testing.T) {
 		var (
 			wantDT        = FooV1DTM
 			wantFoo       = Foo{num: 11, str: "undefined"}
@@ -269,10 +269,10 @@ func TestDVS(t *testing.T) {
 			)
 			mocks = []*mok.Mock{r.Mock}
 		)
-		testUnmarshalMUS[Foo](fooDVS, r, wantDT, wantFoo, wantN, wantErr, mocks, t)
+		testUnmarshal[Foo](fooDVS, r, wantDT, wantFoo, wantN, wantErr, mocks, t)
 	})
 
-	t.Run("If dts.UnmarshalDTMUS fails with an error, UnmarshalMUS should return it",
+	t.Run("If dts.UnmarshalDT fails with an error, Unmarshal should return it",
 		func(t *testing.T) {
 			var (
 				wantDT  com.DTM = 0
@@ -287,11 +287,11 @@ func TestDVS(t *testing.T) {
 				)
 				mocks = []*mok.Mock{r.Mock}
 			)
-			testUnmarshalMUS[Foo](fooDVS, r, wantDT, wantFoo, wantN, wantErr, mocks,
+			testUnmarshal[Foo](fooDVS, r, wantDT, wantFoo, wantN, wantErr, mocks,
 				t)
 		})
 
-	t.Run("UnmarshalMUS should return ErrUnknownDTM, if there is no specified DTM in Registry",
+	t.Run("Unmarshal should return ErrUnknownDTM, if there is no specified DTM in Registry",
 		func(t *testing.T) {
 			var (
 				wantDT  com.DTM = UnknownDTM
@@ -306,11 +306,11 @@ func TestDVS(t *testing.T) {
 				)
 				mocks = []*mok.Mock{r.Mock}
 			)
-			testUnmarshalMUS[Foo](fooDVS, r, wantDT, wantFoo, wantN, wantErr, mocks,
+			testUnmarshal[Foo](fooDVS, r, wantDT, wantFoo, wantN, wantErr, mocks,
 				t)
 		})
 
-	t.Run("UnmarshalMUS should return ErrWrongTypeVersion, if corresponding version in Registry is not MigrationVersion",
+	t.Run("Unmarshal should return ErrWrongTypeVersion, if corresponding version in Registry is not MigrationVersion",
 		func(t *testing.T) {
 			var (
 				wantDT  com.DTM = WrongDTM
@@ -325,7 +325,7 @@ func TestDVS(t *testing.T) {
 				)
 				mocks = []*mok.Mock{r.Mock}
 			)
-			testUnmarshalMUS[Foo](fooDVS, r, wantDT, wantFoo, wantN, wantErr, mocks,
+			testUnmarshal[Foo](fooDVS, r, wantDT, wantFoo, wantN, wantErr, mocks,
 				t)
 		})
 
@@ -360,11 +360,11 @@ func TestDVS(t *testing.T) {
 				})
 				mocks = []*mok.Mock{w.Mock}
 			)
-			_, err := fooDVS.MarshalMUS(FooV1DTM, Foo{}, w)
+			_, err := fooDVS.Marshal(FooV1DTM, Foo{}, w)
 			if err != wantErr {
 				t.Errorf("unexpected error, want '%v' actual '%v'", wantErr, err)
 			}
-			_, err = barDVS.MarshalMUS(BarV1DTM, Bar{}, w)
+			_, err = barDVS.Marshal(BarV1DTM, Bar{}, w)
 			if err != wantErr {
 				t.Errorf("unexpected error, want '%v' actual '%v'", wantErr, err)
 			}
@@ -374,13 +374,13 @@ func TestDVS(t *testing.T) {
 		})
 }
 
-func testMarshalMUS[V any](dvs DVS[V], dtm com.DTM, v V, w muss.Writer,
+func testMarshal[V any](dvs DVS[V], dtm com.DTM, v V, w muss.Writer,
 	wantN int,
 	wantErr error,
 	mocks []*mok.Mock,
 	t *testing.T,
 ) {
-	n, err := dvs.MarshalMUS(dtm, v, w)
+	n, err := dvs.Marshal(dtm, v, w)
 	if err != wantErr {
 		t.Errorf("unexpected error, want '%v' actual '%v'", wantErr, err)
 	}
@@ -392,7 +392,7 @@ func testMarshalMUS[V any](dvs DVS[V], dtm com.DTM, v V, w muss.Writer,
 	}
 }
 
-func testUnmarshalMUS[V any](dvs DVS[V], r muss.Reader,
+func testUnmarshal[V any](dvs DVS[V], r muss.Reader,
 	wantDT com.DTM,
 	wantFoo Foo,
 	wantN int,
@@ -400,7 +400,7 @@ func testUnmarshalMUS[V any](dvs DVS[V], r muss.Reader,
 	mocks []*mok.Mock,
 	t *testing.T,
 ) {
-	dtm, v, n, err := dvs.UnmarshalMUS(r)
+	dtm, v, n, err := dvs.Unmarshal(r)
 	if err != wantErr {
 		t.Errorf("unexpected error, want '%v' actual '%v'", wantErr, err)
 	}

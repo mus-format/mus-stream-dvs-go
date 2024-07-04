@@ -11,8 +11,8 @@ import (
 //
 // It contains methods to support all mus-stream-dvs-go functionality.
 type MigrationVersion[V any] interface {
-	MigrateCurrentAndMarshalMUS(v V, w muss.Writer) (n int, err error)
-	UnmarshalAndMigrateOldMUS(r muss.Reader) (v V, n int, err error)
+	MigrateCurrentAndMarshal(v V, w muss.Writer) (n int, err error)
+	UnmarshalAndMigrateOld(r muss.Reader) (v V, n int, err error)
 }
 
 // Version is an implementation of the MigrationVersion interface.
@@ -22,16 +22,16 @@ type Version[T any, V any] struct {
 	MigrateCurrent com.MigrateCurrent[V, T]
 }
 
-func (ver Version[T, V]) MigrateCurrentAndMarshalMUS(v V, w muss.Writer) (n int,
+func (ver Version[T, V]) MigrateCurrentAndMarshal(v V, w muss.Writer) (n int,
 	err error) {
 	t, err := ver.MigrateCurrent(v)
 	if err != nil {
 		return
 	}
-	return ver.DTS.MarshalMUS(t, w)
+	return ver.DTS.Marshal(t, w)
 }
 
-func (ver Version[T, V]) UnmarshalAndMigrateOldMUS(r muss.Reader) (v V, n int,
+func (ver Version[T, V]) UnmarshalAndMigrateOld(r muss.Reader) (v V, n int,
 	err error) {
 	t, n, err := ver.DTS.UnmarshalData(r)
 	if err != nil {
